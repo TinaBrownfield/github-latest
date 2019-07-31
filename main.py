@@ -4,17 +4,22 @@ import json
 import requests
 
 # Use Like python githubber.py JASchilz
-# (or another user name)
+# my github name TinaBrownfield
 
 if __name__ == "__main__":
+
     username = sys.argv[1]
+    #username = 'TinaBrownfield'
 
-    # TODO:
-    #
-    # 1. Retrieve a list of "events" associated with the given user name
-    # 2. Print out the time stamp associated with the first event in that list.
-
-    print("COMPLETE THE TODOs")
+    response = requests.get("https://api.github.com/users/{}/events".format(username))
+    #events = json.loads(response.content)
+    #print(events[0]['created_at'])
+    
+    try:
+        events = response.json()[0]
+        print('Latest update from {}: '.format(username) + events['created_at'])
+    except TypeError:
+        print('No User by that name')
     
 
 
